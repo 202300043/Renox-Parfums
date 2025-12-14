@@ -45,6 +45,116 @@
         background: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(10px);
       }
+
+      /* Carrusel de marcas con imágenes */
+.brands-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 30px 0;
+}
+
+.brands-slider::before,
+.brands-slider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.brands-slider::before {
+  left: 0;
+  background: linear-gradient(to right, black, transparent);
+}
+
+.brands-slider::after {
+  right: 0;
+  background: linear-gradient(to left, black, transparent);
+}
+
+.brands-track {
+  display: flex;
+  gap: 80px;
+  animation: scroll 40s linear infinite;
+  width: fit-content;
+  align-items: center;
+}
+
+.brands-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.brand-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-logo-container {
+  width: 140px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border: 2px solid rgba(159, 122, 234, 0.15);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-logo-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(159, 122, 234, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.brand-logo-container:hover::before {
+  opacity: 1;
+}
+
+.brand-logo-container:hover {
+  border-color: rgba(159, 122, 234, 0.5);
+  background: rgba(107, 70, 193, 0.1);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(159, 122, 234, 0.2);
+}
+
+.brand-logo-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(0.7);
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.brand-logo-container:hover .brand-logo-img {
+  filter: grayscale(0%) brightness(1.2);
+  transform: scale(1.1);
+}
+
+      
     </style>
   </head>
   <body class="bg-black text-white">
@@ -110,26 +220,120 @@
           Descubre fragancias únicas que definen tu personalidad. Cada aroma cuenta una historia de sofisticación y distinción.
         </p>
 
-        <!-- Stats -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto animate-fade-in-up">
-          <div class="glass-effect border border-gray-800 rounded-lg p-4">
-            <div class="text-3xl md:text-4xl font-bold text-light-purple">200+</div>
-            <div class="text-sm text-gray-400 mt-1">Fragancias</div>
-          </div>
-          <div class="glass-effect border border-gray-800 rounded-lg p-4">
-            <div class="text-3xl md:text-4xl font-bold text-light-purple">50+</div>
-            <div class="text-sm text-gray-400 mt-1">Marcas Premium</div>
-          </div>
-          <div class="glass-effect border border-gray-800 rounded-lg p-4">
-            <div class="text-3xl md:text-4xl font-bold text-light-purple">15K+</div>
-            <div class="text-sm text-gray-400 mt-1">Clientes Felices</div>
-          </div>
-          <div class="glass-effect border border-gray-800 rounded-lg p-4">
-            <div class="text-3xl md:text-4xl font-bold text-light-purple">100%</div>
-            <div class="text-sm text-gray-400 mt-1">Originales</div>
-          </div>
+    
+<!-- Carrusel de Marcas -->
+<div class="mt-16 animate-fade-in-up overflow-hidden">
+  <p class="text-lg md:text-xl text-gray-300/70 mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in-up">Marcas Premium que Manejamos</p>
+  <div class="brands-slider">
+    <div class="brands-track">
+      <!-- Primera serie de logos -->
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/armaff.png" alt="Dior" class="brand-logo-img">
         </div>
       </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/haramain.png" alt="Chanel" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/jean.png" alt="Versace" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/rasasii.png" alt="Gucci" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/dumonts.png" alt="Prada" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/latafa.png" alt="Armani" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/afnan.jpg" alt="Burberry" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/bili.png" alt="Tom Ford" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/ch.jpg" alt="Carolina Herrera" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/versache.png" alt="YSL" class="brand-logo-img">
+        </div>
+      </div>
+      
+      <!-- Duplicado para loop infinito -->
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/armafDorado.png" alt="Dior" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/haramain.png" alt="Chanel" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/jean.png" alt="Versace" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/rasasi.png" alt="Gucci" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/dumonts.png" alt="Prada" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/latafa.png" alt="Armani" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/afnan.png" alt="Burberry" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/bili.png" alt="Tom Ford" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/ch.jpg" alt="Carolina Herrera" class="brand-logo-img">
+        </div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo-container">
+          <img src="./images/logos/versache.png" alt="YSL" class="brand-logo-img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
       <!-- Scroll Indicator -->
       <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
