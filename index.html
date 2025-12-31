@@ -78,23 +78,29 @@
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(-10px);
-  background: linear-gradient(135deg, rgba(20, 20, 30, 0.98), rgba(30, 20, 50, 0.98));
+  
+  /* 🔥 FORZAMOS RECTÁNGULO ANCHO */
+  width: 480px !important;        /* <-- cámbialo si quieres más/menos */
+  min-height: 180px !important;
+  max-width: none !important;
+  
+  /* Estilos visuales */
+  background: linear-gradient(135deg, rgba(20,20,30,0.95), rgba(30,20,50,0.95));
+  padding: 28px 32px !important;
+  border-radius: 14px !important;
+  font-size: 15px;
+  line-height: 1.7;
+  text-align: left;
+  border: 2px solid rgba(159,122,234,0.3);
   color: white;
-  padding: 20px 24px;
-  border-radius: 16px;
-  font-size: 14px;
-  line-height: 1.8;
-  white-space: normal;
-  max-width: 400px;
-  box-shadow: 0 20px 60px rgba(159, 122, 234, 0.4);
+  backdrop-filter: blur(12px);
+
+  /* Animación y visibilidad */
   opacity: 0;
   visibility: hidden;
   transition: all 0.4s ease;
-  z-index: 1000;
   pointer-events: none;
-  border: 2px solid rgba(159, 122, 234, 0.3);
-  backdrop-filter: blur(10px);
-  text-align: left;
+  z-index: 9999;
 }
 
 .tooltip-content-rect::after {
@@ -140,25 +146,34 @@
 
 @media (max-width: 768px) {
   .tooltip-content-rect {
-    bottom: auto;
-    top: 100%;
-    transform: translateX(-50%) translateY(10px);
-    max-width: 320px;
-    font-size: 13px;
-    padding: 16px 20px;
-  }
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
   
-  .tooltip-content-rect::after {
-    top: auto;
-    bottom: 100%;
-    border-top-color: transparent;
-    border-bottom-color: rgba(20, 20, 30, 0.98);
-  }
+  /* 🔥 FORZAMOS RECTÁNGULO ANCHO */
+  width: 480px !important;        /* <-- cámbialo si quieres más/menos */
+  min-height: 180px !important;
+  max-width: none !important;
   
-  .tooltip-wrapper:hover .tooltip-content-rect,
-  .tooltip-wrapper.active .tooltip-content-rect {
-    transform: translateX(-50%) translateY(5px);
-  }
+  /* Estilos visuales */
+  background: linear-gradient(135deg, rgba(20,20,30,0.95), rgba(30,20,50,0.95));
+  padding: 28px 32px !important;
+  border-radius: 14px !important;
+  font-size: 15px;
+  line-height: 1.7;
+  text-align: left;
+  border: 2px solid rgba(159,122,234,0.3);
+  color: white;
+  backdrop-filter: blur(12px);
+
+  /* Animación y visibilidad */
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+  pointer-events: none;
+  z-index: 9999;
+}
 }
       /* Carrusel de marcas con imágenes */
 .brands-slider {
@@ -568,11 +583,11 @@ select option:checked {
         ¿Cómo funciona el servicio?
       </div>
       <div class="tooltip-content-rect">
-        <strong class="block mb-2">Proceso simple en 3 pasos:</strong>
+        <strong class="block mb-2">Proceso simple en 4 pasos:</strong>
         1. Completa el formulario con el perfume que buscas<br>
         2. Me dedicare a buscar tu perfume<br>
         3. Te contactamos con disponibilidad y precio<br>
-        4. Todo esto en un periodo de 1 o 3 dias<br>
+        4. Todo esto en un periodo de 5 a 30 dias<br>
         <span class="block mt-2 text-light-purple"> Servicio completamente gratuito (por el momento)</span>
       </div>
     </div>
