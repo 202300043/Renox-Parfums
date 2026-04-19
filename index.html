@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RenoxParfum´s</title>
+    <meta name="description" content="RenoxParfum's - Perfumería premium. Fragancias árabes, de diseñador y nicho." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>RenoxParfum's — Perfumería Premium</title>
     
     <!-- EmailJS CDN -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -28,6 +32,8 @@
       }
     </script>
     <style>
+      *, *::before, *::after { font-family: 'Inter', system-ui, sans-serif; }
+      html { scroll-behavior: smooth; }
       @keyframes fadeInUp {
         from {
           opacity: 0;
@@ -42,8 +48,9 @@
         animation: fadeInUp 0.8s ease-out;
       }
       .glass-effect {
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(10px);
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
       }
 
 /* Tooltip rectangular con texto */
@@ -146,34 +153,27 @@
 
 @media (max-width: 768px) {
   .tooltip-content-rect {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-10px);
-  
-  /* 🔥 FORZAMOS RECTÁNGULO ANCHO */
-  width: 480px !important;        /* <-- cámbialo si quieres más/menos */
-  min-height: 180px !important;
-  max-width: none !important;
-  
-  /* Estilos visuales */
-  background: linear-gradient(135deg, rgba(20,20,30,0.95), rgba(30,20,50,0.95));
-  padding: 28px 32px !important;
-  border-radius: 14px !important;
-  font-size: 15px;
-  line-height: 1.7;
-  text-align: left;
-  border: 2px solid rgba(159,122,234,0.3);
-  color: white;
-  backdrop-filter: blur(12px);
-
-  /* Animación y visibilidad */
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.4s ease;
-  pointer-events: none;
-  z-index: 9999;
+    width: min(420px, 88vw) !important;
+    min-height: auto !important;
+    max-width: 88vw !important;
+    padding: 20px 22px !important;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .tooltip-wrapper:hover .tooltip-content-rect,
+  .tooltip-wrapper.active .tooltip-content-rect {
+    transform: translateX(-50%) translateY(-5px);
+  }
+  .brands-track { gap: 40px; }
+  .brand-logo-container { width: 110px; height: 65px; padding: 10px; }
 }
+@media (max-width: 480px) {
+  .tooltip-content-rect {
+    width: 92vw !important;
+    padding: 16px 16px !important;
+    font-size: 13px;
+  }
+  .tooltip-trigger-rect { padding: 10px 16px; font-size: 14px; }
 }
       /* Carrusel de marcas con imágenes */
 .brands-slider {
@@ -303,8 +303,41 @@ select option:checked {
 }
 
 
+/* Custom dropdown */
+.custom-dropdown { position: relative; width: 100%; }
+.custom-dropdown-trigger {
+  width: 100%; padding: 12px 16px; background: rgba(17,17,27,0.9);
+  border: 1px solid rgba(75,85,99,0.5); border-radius: 8px; color: white;
+  cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.3s ease; font-size: 15px;
+}
+.custom-dropdown-trigger:hover, .custom-dropdown-trigger.active {
+  border-color: #9F7AEA; box-shadow: 0 0 0 2px rgba(159,122,234,0.25);
+}
+.custom-dropdown-trigger .arrow-icon { transition: transform 0.3s ease; }
+.custom-dropdown-trigger.active .arrow-icon { transform: rotate(180deg); }
+.custom-dropdown-menu {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+  background: rgba(15,15,30,0.98); border: 1px solid rgba(159,122,234,0.3);
+  border-radius: 12px; max-height: 300px; overflow-y: auto; z-index: 100;
+  opacity: 0; visibility: hidden; transform: translateY(-8px);
+  transition: all 0.25s ease; backdrop-filter: blur(16px);
+}
+.custom-dropdown-menu.open { opacity: 1; visibility: visible; transform: translateY(0); }
+.custom-dropdown-menu::-webkit-scrollbar { width: 6px; }
+.custom-dropdown-menu::-webkit-scrollbar-thumb { background: rgba(159,122,234,0.3); border-radius: 3px; }
+.dropdown-group-label {
+  padding: 10px 16px 6px; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px; color: #9F7AEA;
+  border-bottom: 1px solid rgba(159,122,234,0.15);
+}
+.dropdown-option {
+  padding: 10px 16px 10px 24px; cursor: pointer; color: rgba(255,255,255,0.8);
+  font-size: 14px; transition: all 0.2s ease;
+}
+.dropdown-option:hover { background: rgba(159,122,234,0.15); color: white; }
+.dropdown-option.selected { background: rgba(107,70,193,0.2); color: #9F7AEA; font-weight: 600; }
 
-      
     </style>
   </head>
   <body class="bg-black text-white">
@@ -482,10 +515,8 @@ select option:checked {
     </div>
   </div>
 </div>
-
-
-
-      
+      </div>
+    </section>
 
     <!-- Sección Catálogo -->
     <section id="catalogo" class="py-20 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden">
@@ -607,57 +638,44 @@ select option:checked {
           required
           class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-light-purple focus:border-transparent"
         >
-        <div class="relative">
-  <select 
-    id="nombrePerfume" 
-    required
-    class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white appearance-none focus:outline-none focus:ring-2 focus:ring-light-purple focus:border-transparent cursor-pointer"
-  >
-    <option value="" disabled selected class="text-gray-500">Selecciona la marca del perfume</option>
-    
-    <optgroup label=" MARCAS ÁRABES" class="text-light-purple font-bold">
-      <option value="Afnan">Afnan</option>
-      <option value="Armaf">Armaf</option>
-      <option value="Lattafa">Lattafa</option>
-      <option value="Rasasi">Rasasi</option>
-      <option value="Ajmal">Dumont</option>
-      <option value="Al Haramain">Al Haramain</option>
-    </optgroup>
-    
-    <optgroup label=" MARCAS DE DISEÑADOR" class="text-light-purple font-bold">
-      <option value="Carolina Herrera">Carolina Herrera</option>
-      <option value="Versace">Versace</option>
-      <option value="Dior">Dior</option>
-      <option value="Chanel">Chanel</option>
-      <option value="Paco Rabanne">Paco Rabanne</option>
-      <option value="Jean Paul Gaultier">Jean Paul Gaultier</option>
-      <option value="Yves Saint Laurent">Yves Saint Laurent</option>
-      <option value="Giorgio Armani">Giorgio Armani</option>
-      <option value="Prada">Valentino</option>
-      <option value="Gucci">Gucci</option>
-      <option value="Dolce & Gabbana">Dolce & Gabbana</option>
-      <option value="Burberry">Burberry</option>
-      <option value="Calvin Klein">Calvin Klein</option>
-      <option value="Hugo Boss">Hugo Boss</option>
-      <option value="Tom Ford">Tom Ford</option>
-    </optgroup>
-    
-    <optgroup label=" MARCAS NICHO" class="text-light-purple font-bold">
-      <option value="Creed">Creed</option>
-      <option value="Parfums de Marly">Parfums de Marly</option>
-      <option value="Xerjoff">Xerjoff</option>
-    </optgroup>
-    
-    <optgroup label=" SI NO ENCONTRASTE LA MARCA, SELECCIONA ESTA OPCION" class="text-light-purple font-bold"></optgroup>
-    <option value="Otra marca"> Otra marca (especificar en mensaje)</option>
-  </select>
-  <!-- Flecha personalizada del select -->
-  <div class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-    <svg class="w-5 h-5 text-light-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-    </svg>
-  </div>
-</div>
+        <input type="hidden" id="nombrePerfume" name="nombrePerfume" required>
+        <div class="custom-dropdown" id="brandDropdown">
+          <div class="custom-dropdown-trigger" id="dropdownTrigger">
+            <span id="dropdownLabel" class="text-gray-500">Selecciona la marca</span>
+            <svg class="w-5 h-5 text-light-purple arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+          <div class="custom-dropdown-menu" id="dropdownMenu">
+            <div class="dropdown-group-label">🕌 Marcas Árabes</div>
+            <div class="dropdown-option" data-value="Afnan">Afnan</div>
+            <div class="dropdown-option" data-value="Armaf">Armaf</div>
+            <div class="dropdown-option" data-value="Lattafa">Lattafa</div>
+            <div class="dropdown-option" data-value="Rasasi">Rasasi</div>
+            <div class="dropdown-option" data-value="Dumont">Dumont</div>
+            <div class="dropdown-option" data-value="Al Haramain">Al Haramain</div>
+            <div class="dropdown-group-label">👔 Marcas de Diseñador</div>
+            <div class="dropdown-option" data-value="Carolina Herrera">Carolina Herrera</div>
+            <div class="dropdown-option" data-value="Versace">Versace</div>
+            <div class="dropdown-option" data-value="Dior">Dior</div>
+            <div class="dropdown-option" data-value="Chanel">Chanel</div>
+            <div class="dropdown-option" data-value="Paco Rabanne">Paco Rabanne</div>
+            <div class="dropdown-option" data-value="Jean Paul Gaultier">Jean Paul Gaultier</div>
+            <div class="dropdown-option" data-value="Yves Saint Laurent">Yves Saint Laurent</div>
+            <div class="dropdown-option" data-value="Giorgio Armani">Giorgio Armani</div>
+            <div class="dropdown-option" data-value="Valentino">Valentino</div>
+            <div class="dropdown-option" data-value="Gucci">Gucci</div>
+            <div class="dropdown-option" data-value="Dolce &amp; Gabbana">Dolce &amp; Gabbana</div>
+            <div class="dropdown-option" data-value="Burberry">Burberry</div>
+            <div class="dropdown-option" data-value="Calvin Klein">Calvin Klein</div>
+            <div class="dropdown-option" data-value="Hugo Boss">Hugo Boss</div>
+            <div class="dropdown-option" data-value="Tom Ford">Tom Ford</div>
+            <div class="dropdown-group-label">💎 Marcas Nicho</div>
+            <div class="dropdown-option" data-value="Creed">Creed</div>
+            <div class="dropdown-option" data-value="Parfums de Marly">Parfums de Marly</div>
+            <div class="dropdown-option" data-value="Xerjoff">Xerjoff</div>
+            <div class="dropdown-group-label">✨ ¿No encontraste tu marca?</div>
+            <div class="dropdown-option" data-value="Otra marca">Otra marca (especificar en mensaje)</div>
+          </div>
+        </div>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -837,6 +855,39 @@ document.addEventListener('click', function(e) {
   }
 });
 
+  // Custom dropdown logic
+  const dropdownTrigger = document.getElementById('dropdownTrigger');
+  const dropdownMenu = document.getElementById('dropdownMenu');
+  const dropdownLabel = document.getElementById('dropdownLabel');
+  const hiddenInput = document.getElementById('nombrePerfume');
+  const dropdownOptions = document.querySelectorAll('.dropdown-option');
+
+  dropdownTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdownTrigger.classList.toggle('active');
+    dropdownMenu.classList.toggle('open');
+  });
+
+  dropdownOptions.forEach(opt => {
+    opt.addEventListener('click', () => {
+      dropdownOptions.forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      hiddenInput.value = opt.dataset.value;
+      dropdownLabel.textContent = opt.textContent;
+      dropdownLabel.classList.remove('text-gray-500');
+      dropdownLabel.classList.add('text-white');
+      dropdownTrigger.classList.remove('active');
+      dropdownMenu.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.custom-dropdown')) {
+      dropdownTrigger.classList.remove('active');
+      dropdownMenu.classList.remove('open');
+    }
+  });
+
   // Manejar checkboxes de "No tengo"
   const telefonoInput = document.getElementById('telefono');
   const emailInput = document.getElementById('email');
@@ -925,6 +976,11 @@ document.addEventListener('click', function(e) {
       status.classList.remove('hidden', 'text-red-500');
       status.classList.add('text-green-500');
       searchForm.reset();
+      hiddenInput.value = '';
+      dropdownLabel.textContent = 'Selecciona la marca';
+      dropdownLabel.classList.remove('text-white');
+      dropdownLabel.classList.add('text-gray-500');
+      dropdownOptions.forEach(o => o.classList.remove('selected'));
       
       // Resetear checkboxes
       noTelefonoCheck.checked = false;
