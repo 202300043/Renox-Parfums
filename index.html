@@ -27,285 +27,195 @@
         }
       }
     </script>
-    <style>
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+   <style>
+      @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)} }
+      .animate-fade-in-up { animation: fadeInUp 0.8s ease-out; }
+      .glass-effect { background:rgba(0,0,0,0.5); backdrop-filter:blur(10px); }
+
+      /* ── Tooltip ── */
+      .tooltip-wrapper { position:relative; display:inline-block; }
+      .tooltip-trigger-rect {
+        display:inline-block; padding:12px 24px;
+        background:linear-gradient(135deg,rgba(107,70,193,0.2),rgba(159,122,234,0.2));
+        border:2px solid rgba(159,122,234,0.4); border-radius:12px;
+        color:#9F7AEA; font-weight:600; font-size:16px;
+        cursor:help; transition:all 0.3s ease; backdrop-filter:blur(5px);
       }
-      .animate-fade-in-up {
-        animation: fadeInUp 0.8s ease-out;
+      .tooltip-trigger-rect:hover {
+        background:linear-gradient(135deg,rgba(107,70,193,0.3),rgba(159,122,234,0.3));
+        border-color:#9F7AEA; transform:translateY(-2px); box-shadow:0 8px 20px rgba(159,122,234,0.3);
       }
-      .glass-effect {
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(10px);
+      .tooltip-content-rect {
+        position:absolute; bottom:100%; left:50%;
+        transform:translateX(-50%) translateY(-10px);
+        width:480px !important; min-height:180px !important; max-width:none !important;
+        background:linear-gradient(135deg,rgba(20,20,30,0.95),rgba(30,20,50,0.95));
+        padding:28px 32px !important; border-radius:14px !important;
+        font-size:15px; line-height:1.7; text-align:left;
+        border:2px solid rgba(159,122,234,0.3); color:white;
+        backdrop-filter:blur(12px); opacity:0; visibility:hidden;
+        transition:all 0.4s ease; pointer-events:none; z-index:9999;
+      }
+      .tooltip-content-rect::after {
+        content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+        border:10px solid transparent; border-top-color:rgba(20,20,30,0.98);
+      }
+      .tooltip-wrapper:hover .tooltip-content-rect,
+      .tooltip-wrapper.active .tooltip-content-rect {
+        opacity:1; visibility:visible; transform:translateX(-50%) translateY(-5px);
+      }
+      .info-icon-large {
+        display:inline-flex; align-items:center; justify-content:center;
+        width:48px; height:48px; border-radius:12px;
+        background:linear-gradient(135deg,rgba(107,70,193,0.2),rgba(159,122,234,0.2));
+        border:2px solid rgba(159,122,234,0.4); color:#9F7AEA;
+        font-size:24px; font-weight:bold; cursor:help;
+        transition:all 0.3s ease; backdrop-filter:blur(5px);
+      }
+      .info-icon-large:hover {
+        background:linear-gradient(135deg,rgba(107,70,193,0.3),rgba(159,122,234,0.3));
+        border-color:#9F7AEA; transform:translateY(-2px) scale(1.05);
+        box-shadow:0 8px 20px rgba(159,122,234,0.3);
       }
 
-/* Tooltip rectangular con texto */
-.tooltip-wrapper {
-  position: relative;
-  display: inline-block;
-}
+      /* ── Brands slider ── */
+      .brands-slider { width:100%; overflow:hidden; position:relative; padding:30px 0; }
+      .brands-slider::before,.brands-slider::after {
+        content:''; position:absolute; top:0; width:150px; height:100%; z-index:2; pointer-events:none;
+      }
+      .brands-slider::before { left:0; background:linear-gradient(to right,black,transparent); }
+      .brands-slider::after  { right:0; background:linear-gradient(to left,black,transparent); }
+      .brands-track { display:flex; gap:80px; animation:scroll 40s linear infinite; width:fit-content; align-items:center; }
+      .brands-track:hover { animation-play-state:paused; }
+      @keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+      .brand-item { flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+      .brand-logo-container {
+        width:140px; height:80px; display:flex; align-items:center; justify-content:center;
+        padding:15px; border:2px solid rgba(159,122,234,0.15); border-radius:12px;
+        background:rgba(0,0,0,0.3); backdrop-filter:blur(5px); transition:all 0.4s ease; position:relative; overflow:hidden;
+      }
+      .brand-logo-container::before {
+        content:''; position:absolute; inset:0;
+        background:linear-gradient(135deg,rgba(159,122,234,0.1),transparent); opacity:0; transition:opacity 0.4s ease;
+      }
+      .brand-logo-container:hover::before { opacity:1; }
+      .brand-logo-container:hover {
+        border-color:rgba(159,122,234,0.5); background:rgba(107,70,193,0.1);
+        transform:translateY(-5px) scale(1.05); box-shadow:0 10px 30px rgba(159,122,234,0.2);
+      }
+      .brand-logo-img {
+        max-width:100%; max-height:100%; object-fit:contain;
+        filter:grayscale(100%) brightness(0.7); transition:all 0.4s ease; position:relative; z-index:1;
+      }
+      .brand-logo-container:hover .brand-logo-img { filter:grayscale(0%) brightness(1.2); transform:scale(1.1); }
+      select option { background:#1a1a2e; color:white; padding:10px; }
+      select optgroup { background:#0f0f1e; font-weight:bold; color:#9F7AEA; padding:8px 0; }
 
-.tooltip-trigger-rect {
-  display: inline-block;
-  padding: 12px 24px;
-  background: linear-gradient(135deg, rgba(107, 70, 193, 0.2), rgba(159, 122, 234, 0.2));
-  border: 2px solid rgba(159, 122, 234, 0.4);
-  border-radius: 12px;
-  color: #9F7AEA;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: help;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
-}
+      /* ══ VISTA PRODUCTO ══ */
+      #view-product {
+        position:fixed; inset:0; z-index:45;
+        background:#0a0a0a; overflow-y:auto; display:none;
+      }
+      #view-product.open { display:block; }
 
-.tooltip-trigger-rect:hover {
-  background: linear-gradient(135deg, rgba(107, 70, 193, 0.3), rgba(159, 122, 234, 0.3));
-  border-color: #9F7AEA;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(159, 122, 234, 0.3);
-}
+      .prod-nav {
+        position:sticky; top:0; z-index:10;
+        background:rgba(10,10,10,0.95); backdrop-filter:blur(12px);
+        border-bottom:1px solid rgba(255,255,255,0.07);
+        display:flex; align-items:center; padding:0 2rem; height:64px;
+      }
+      .prod-back {
+        display:inline-flex; align-items:center; gap:10px;
+        background:transparent; border:1px solid rgba(159,122,234,0.35);
+        color:#9F7AEA; font-size:.9rem; font-weight:600;
+        cursor:pointer; padding:8px 20px; border-radius:999px;
+        transition:background .2s, color .2s;
+      }
+      .prod-back:hover { background:#9F7AEA; color:#fff; }
 
-.tooltip-content-rect {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-10px);
-  
-  /* 🔥 FORZAMOS RECTÁNGULO ANCHO */
-  width: 480px !important;        /* <-- cámbialo si quieres más/menos */
-  min-height: 180px !important;
-  max-width: none !important;
-  
-  /* Estilos visuales */
-  background: linear-gradient(135deg, rgba(20,20,30,0.95), rgba(30,20,50,0.95));
-  padding: 28px 32px !important;
-  border-radius: 14px !important;
-  font-size: 15px;
-  line-height: 1.7;
-  text-align: left;
-  border: 2px solid rgba(159,122,234,0.3);
-  color: white;
-  backdrop-filter: blur(12px);
+      .prod-layout {
+        display:grid; grid-template-columns:1fr 1fr;
+        gap:60px; max-width:1100px; margin:0 auto; padding:40px 2rem 60px;
+      }
+      @media(max-width:768px){ .prod-layout{grid-template-columns:1fr;gap:32px;} }
 
-  /* Animación y visibilidad */
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.4s ease;
-  pointer-events: none;
-  z-index: 9999;
-}
+      .prod-img-wrap {
+        border-radius:20px; overflow:hidden;
+        border:1px solid rgba(255,255,255,0.08);
+        background:#111; aspect-ratio:3/4;
+        display:flex; align-items:center; justify-content:center;
+      }
+      .prod-img { width:100%; height:100%; object-fit:cover; display:block; }
 
-.tooltip-content-rect::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 10px solid transparent;
-  border-top-color: rgba(20, 20, 30, 0.98);
-}
+      .prod-info { display:flex; flex-direction:column; gap:20px; padding-top:8px; }
+      .prod-pills { display:flex; gap:8px; flex-wrap:wrap; }
+      .pill-offer {
+        font-size:.7rem; font-weight:700; padding:4px 12px; border-radius:999px;
+        text-transform:uppercase; letter-spacing:.08em;
+        background:rgba(124,58,237,.2); color:#9F7AEA; border:1px solid rgba(124,58,237,.4);
+      }
+      .pill-orig {
+        font-size:.7rem; font-weight:700; padding:4px 12px; border-radius:999px;
+        text-transform:uppercase; letter-spacing:.08em;
+        background:transparent; color:#555; border:1px solid #333;
+      }
+      .prod-brand { font-size:.78rem; color:#9F7AEA; letter-spacing:.14em; text-transform:uppercase; }
+      .prod-name  { font-size:clamp(1.6rem,4vw,2.4rem); font-weight:900; line-height:1.15; color:#fff; }
+      .prod-prices { display:flex; align-items:baseline; gap:14px; }
+      .prod-old   { font-size:1.1rem; color:#555; text-decoration:line-through; }
+      .prod-price { font-size:2rem; font-weight:800; color:#fff; }
+      .prod-desc  { color:#9ca3af; font-size:.97rem; line-height:1.7; }
+      .prod-notes { display:flex; flex-direction:column; gap:8px; }
+      .note-row   { display:flex; gap:10px; align-items:center; font-size:.87rem; }
+      .note-label { color:#555; min-width:72px; font-weight:700; text-transform:uppercase; font-size:.7rem; letter-spacing:.08em; }
+      .note-val   { color:#9ca3af; }
+      .prod-sep   { border:none; border-top:1px solid rgba(255,255,255,0.07); }
 
-.tooltip-wrapper:hover .tooltip-content-rect,
-.tooltip-wrapper.active .tooltip-content-rect {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(-5px);
-}
+      /* Botón WhatsApp */
+      .btn-whatsapp {
+        display:inline-flex; align-items:center; justify-content:center; gap:10px;
+        width:100%; padding:15px 24px;
+        background:#25D366; border:none; color:#fff;
+        font-size:1rem; font-weight:700; border-radius:999px;
+        cursor:pointer; transition:background .2s, transform .15s;
+        text-decoration:none;
+      }
+      .btn-whatsapp:hover { background:#1ebe5c; transform:translateY(-2px); }
+      .btn-whatsapp svg { width:22px; height:22px; flex-shrink:0; }
 
-.info-icon-large {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(107, 70, 193, 0.2), rgba(159, 122, 234, 0.2));
-  border: 2px solid rgba(159, 122, 234, 0.4);
-  color: #9F7AEA;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: help;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
-}
+      /* Relacionados */
+      .related-section { max-width:1100px; margin:0 auto; padding:0 2rem 80px; }
+      .related-title { font-size:1.4rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin-bottom:28px; color:#fff; }
+      .related-title span { color:#9F7AEA; }
+      .related-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; }
+      .rel-card {
+        background:#111; border:1px solid rgba(255,255,255,0.08); border-radius:14px;
+        overflow:hidden; cursor:pointer; transition:border-color .25s, transform .25s;
+      }
+      .rel-card:hover { border-color:rgba(159,122,234,0.5); transform:translateY(-4px); }
+      .rel-img-wrap { height:160px; overflow:hidden; background:#1a1a1a; }
+      .rel-img { width:100%; height:100%; object-fit:cover; transition:transform .35s; }
+      .rel-card:hover .rel-img { transform:scale(1.08); }
+      .rel-body { padding:14px 16px 16px; }
+      .rel-name  { font-size:.9rem; font-weight:700; color:#fff; margin-bottom:6px; }
+      .rel-prices { display:flex; gap:8px; align-items:baseline; }
+      .rel-old   { font-size:.76rem; color:#555; text-decoration:line-through; }
+      .rel-price { font-size:.95rem; font-weight:700; color:#9F7AEA; }
 
-.info-icon-large:hover {
-  background: linear-gradient(135deg, rgba(107, 70, 193, 0.3), rgba(159, 122, 234, 0.3));
-  border-color: #9F7AEA;
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(159, 122, 234, 0.3);
-}
-
-@media (max-width: 768px) {
-  .tooltip-content-rect {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-10px);
-  
-  /* 🔥 FORZAMOS RECTÁNGULO ANCHO */
-  width: 480px !important;        /* <-- cámbialo si quieres más/menos */
-  min-height: 180px !important;
-  max-width: none !important;
-  
-  /* Estilos visuales */
-  background: linear-gradient(135deg, rgba(20,20,30,0.95), rgba(30,20,50,0.95));
-  padding: 28px 32px !important;
-  border-radius: 14px !important;
-  font-size: 15px;
-  line-height: 1.7;
-  text-align: left;
-  border: 2px solid rgba(159,122,234,0.3);
-  color: white;
-  backdrop-filter: blur(12px);
-
-  /* Animación y visibilidad */
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.4s ease;
-  pointer-events: none;
-  z-index: 9999;
-}
-}
-      /* Carrusel de marcas con imágenes */
-.brands-slider {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  padding: 30px 0;
-}
-
-.brands-slider::before,
-.brands-slider::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 150px;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.brands-slider::before {
-  left: 0;
-  background: linear-gradient(to right, black, transparent);
-}
-
-.brands-slider::after {
-  right: 0;
-  background: linear-gradient(to left, black, transparent);
-}
-
-.brands-track {
-  display: flex;
-  gap: 80px;
-  animation: scroll 40s linear infinite;
-  width: fit-content;
-  align-items: center;
-}
-
-.brands-track:hover {
-  animation-play-state: paused;
-}
-
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.brand-item {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.brand-logo-container {
-  width: 140px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  border: 2px solid rgba(159, 122, 234, 0.15);
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(5px);
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.brand-logo-container::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(159, 122, 234, 0.1), transparent);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.brand-logo-container:hover::before {
-  opacity: 1;
-}
-
-.brand-logo-container:hover {
-  border-color: rgba(159, 122, 234, 0.5);
-  background: rgba(107, 70, 193, 0.1);
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 10px 30px rgba(159, 122, 234, 0.2);
-}
-
-.brand-logo-img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  filter: grayscale(100%) brightness(0.7);
-  transition: all 0.4s ease;
-  position: relative;
-  z-index: 1;
-}
-
-.brand-logo-container:hover .brand-logo-img {
-  filter: grayscale(0%) brightness(1.2);
-  transform: scale(1.1);
-}
-
-/* Estilos personalizados para el select */
-select option {
-  background: #1a1a2e;
-  color: white;
-  padding: 10px;
-}
-
-select optgroup {
-  background: #0f0f1e;
-  font-weight: bold;
-  color: #9F7AEA;
-  padding: 8px 0;
-}
-
-select option:hover,
-select option:checked {
-  background: linear-gradient(135deg, rgba(107, 70, 193, 0.3), rgba(159, 122, 234, 0.3));
-}
-
-
-
-      
+      /* ── Paginación ── */
+      .pagination { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:48px; flex-wrap:wrap; }
+      .page-btn {
+        width:42px; height:42px; display:flex; align-items:center; justify-content:center;
+        border:1px solid rgba(255,255,255,0.18); border-radius:6px;
+        background:transparent; color:#fff; font-size:.9rem; font-weight:600;
+        cursor:pointer; transition:all .2s;
+      }
+      .page-btn:hover { border-color:#9F7AEA; color:#9F7AEA; }
+      .page-btn.active { background:#fff; color:#000; border-color:#fff; }
+      .page-btn.dots { cursor:default; border-color:transparent; }
+      .page-btn.dots:hover { border-color:transparent; color:#fff; }
     </style>
+
   </head>
   <body class="bg-black text-white">
     <!-- Header con navegación -->
@@ -495,13 +405,12 @@ select option:checked {
       </div>
     </section>
 
-    <!-- Sección Catálogo -->
+     <!-- ════ CATÁLOGO ════ -->
     <section id="catalogo" class="py-20 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden">
       <div class="absolute inset-0 opacity-5">
         <div class="absolute top-0 left-0 w-96 h-96 bg-elegant-purple rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 right-0 w-96 h-96 bg-light-purple rounded-full blur-3xl"></div>
       </div>
-
       <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="text-center mb-16">
           <h2 class="text-4xl md:text-6xl font-black text-white mb-4">
@@ -511,56 +420,9 @@ select option:checked {
             Explora nuestra colección exclusiva de perfumes de las mejores marcas del mundo
           </p>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Perfume 1 - CAMBIA 'perfume1.jpg' por tu imagen -->
-          <div class="group glass-effect rounded-2xl overflow-hidden border border-gray-800 hover:border-light-purple transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-light-purple/20">
-            <div class="h-48 bg-gray-900 relative overflow-hidden">
-              <img src="./images/9pm.png" alt="Rosa Elegante" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-light-purple transition-colors">9PM Black – Afnan</h3>
-              <p class="text-gray-400 mb-4">Una fragancia intensa y seductora, ideal para la noche. Dulce, cálida y envolvente, perfecta para destacar con estilo y dejar una impresión inolvidable.</p>
-              <div class="flex items-center justify-between">
-                <span class="text-sm text-light-purple font-semibold">$950 MXN</span>
-                <span class="text-sm text-gray-500">100ml</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Perfume 2 - CAMBIA 'perfume2.jpg' por tu imagen -->
-          <div class="group glass-effect rounded-2xl overflow-hidden border border-gray-800 hover:border-light-purple transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-light-purple/20">
-            <div class="h-48 bg-gray-900 relative overflow-hidden">
-              <img src="./images/elis.png" alt="Océano Fresco" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-light-purple transition-colors">Billie Eilish Gold – Eilish</h3>
-              <p class="text-gray-400 mb-4">Un perfume cálido y envolvente, con notas dulces y cremosas que transmiten sensualidad y elegancia. Ideal para quienes buscan un aroma sofisticado y con personalidad propia.</p>
-              <div class="flex items-center justify-between">
-                <span class="text-sm text-light-purple font-semibold">$1,050 MXN</span>
-                <span class="text-sm text-gray-500">100ml</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Perfume 3 - CAMBIA 'perfume3.jpg' por tu imagen -->
-          <div class="group glass-effect rounded-2xl overflow-hidden border border-gray-800 hover:border-light-purple transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-light-purple/20">
-            <div class="h-48 bg-gray-900 relative overflow-hidden">
-              <img src="./images/212.jpg" alt="Noche de Luna" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-light-purple transition-colors">212 VIP Black – Carolina Herrera</h3>
-              <p class="text-gray-400 mb-4">Una fragancia audaz y elegante, con un aroma intenso y masculino. Perfecta para la noche, transmite seguridad, sofisticación y un estilo moderno que no pasa desapercibido.</p>
-              <div class="flex items-center justify-between">
-                <span class="text-sm text-light-purple font-semibold">$1,800 MXN</span>
-                <span class="text-sm text-gray-500">100ml</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="catalog-grid"></div>
+        <!-- Paginación -->
+        <div class="pagination" id="pagination"></div>
       </div>
     </section>
 
@@ -656,7 +518,9 @@ select option:checked {
       <option value="Xerjoff">Xerjoff</option>
     </optgroup>
     
+    <optgroup label = "Seleccion distinta" class="text-light-purple font-bold" >
     <option value="Otra marca"> Otra marca (especificar en mensaje)</option>
+    </optgroup>
   </select>
   <!-- Flecha personalizada del select -->
   <div class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
@@ -786,14 +650,244 @@ select option:checked {
       </div>
     </footer>
 
+    
+     <!-- ════ VISTA DETALLE PRODUCTO (overlay) ════ -->
+    <div id="view-product">
+      <div class="prod-nav"></div>
+
+      <div class="prod-layout">
+        <div class="prod-img-wrap">
+          <img id="pd-img" class="prod-img" src="" alt="">
+        </div>
+        <div class="prod-info">
+          <div class="prod-pills">
+            <span class="pill-offer">¡Oferta!</span>
+            <span class="pill-orig">100% Original</span>
+          </div>
+          <div>
+            <div class="prod-brand" id="pd-brand"></div>
+            <h1 class="prod-name"  id="pd-name"></h1>
+          </div>
+          <div class="prod-prices">
+            <span class="prod-old"   id="pd-old"></span>
+            <span class="prod-price" id="pd-price"></span>
+          </div>
+          <p class="prod-desc" id="pd-desc"></p>
+          <hr class="prod-sep">
+          <div class="prod-notes" id="pd-notes"></div>
+          <hr class="prod-sep">
+          <!-- Botón WhatsApp automático -->
+          <a id="btn-whatsapp" href="#" target="_blank" class="btn-whatsapp">
+            <svg fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Preguntar por WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Relacionados -->
+      <div class="related-section">
+        <h2 class="related-title">PRODUCTOS <span>RELACIONADOS</span></h2>
+        <div class="related-grid" id="related-grid"></div>
+      </div>
+      <div style="text-align:center; margin:22px 0 40px;">
+        <button id="backToCatalogBottom" class="prod-back">Regresar al catálogo</button>
+      </div>
+    </div><!-- /#view-product -->
+
+
     <script>
+
+      /* ── Número WhatsApp (sin + ni espacios) ── */
+    const WA_NUMBER = '528911050382';
+
+      /* ─── Datos de perfumes ─── */
+    const perfumes = [
+       {
+        id:1, brand:'Afnan', name:'9PM Black',
+        price:'$800 MXN', priceOld:'$1,050 MXN', ml:'100ml',
+        img:'./images/9pm.png',
+        desc:'Una fragancia intensa y seductora, ideal para la noche. Dulce, cálida y envolvente, perfecta para destacar con estilo y dejar una impresión inolvidable.',
+        waMsg:'Hola! Me interesa el perfume *9PM Black de Afnan (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $800 MXN.',
+        notes:{ Salida:'Mandarina, Manzana', Corazón:'Canela, Cardamomo', Fondo:'Ámbar, Vainilla, Musgo' }
+      },
+      {
+        id:2, brand:'Eilish', name:'Billie Eilish Gold',
+        price:'$950 MXN', priceOld:'$1,200 MXN', ml:'100ml',
+        img:'./images/billi.png',
+        desc:'Un perfume cálido y envolvente, con notas dulces y cremosas que transmiten sensualidad y elegancia. Ideal para quienes buscan un aroma sofisticado y con personalidad propia.',
+        waMsg:'Hola! Me interesa el perfume *Billie Eilish Gold (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $950 MXN.',
+        notes:{ Salida:'Bergamota, Mandarina', Corazón:'Gardenia, Rosa, Jazmín', Fondo:'Sándalo, Vainilla, Almizcle' }
+      },
+      {
+        id:3, brand:'Carolina Herrera', name:'212 VIP Black',
+        price:'$1,800 MXN', priceOld:'$2,500 MXN', ml:'100ml',
+        img:'./images/212.jpg',
+        desc:'Una fragancia audaz y elegante, con un aroma intenso y masculino. Perfecta para la noche, transmite seguridad, sofisticación y un estilo moderno que no pasa desapercibido.',
+        waMsg:'Hola! Me interesa el perfume *212 VIP Black de Carolina Herrera (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $1,800 MXN.',
+        notes:{ Salida:'Bergamota, Pimienta negra', Corazón:'Bourbon, Cedro', Fondo:'Ámbar, Cuero, Vainilla' }
+      },
+      {
+        id:4, brand:'Rasasi', name:'Hawas Ice',
+        price:'$1,000 MXN', priceOld:'$1,200MXN', ml:'100ml',
+        img:'./images/hawas.png',
+        desc:'Hawas Ice de Rasasi es una fragancia masculina fresca, cítrica y especiada, con un fondo amaderado. Vibrante, moderna y perfecta para quienes buscan un aroma limpio y energizante.',
+        waMsg:'Hola! Me interesa el perfume *Hawas Ice de Rasasi (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $1,000 MXN.',
+        notes:{ Salida:'Limón, Bergamota, Menta', Corazón:'Especias, Geranio', Fondo:'Cedro, Sándalo, Almizcle' }
+      }
+    ];
+
+    let qty = 1;
+
+    /* ── Paginación ── */
+    const PER_PAGE = 3;
+    let currentPage = 1;
+
+    function totalPages() { return Math.ceil(perfumes.length / PER_PAGE); }
+
+    function buildCatalog() {
+      const start = (currentPage - 1) * PER_PAGE;
+      const slice = perfumes.slice(start, start + PER_PAGE);
+
+      document.getElementById('catalog-grid').innerHTML = slice.map(p => `
+        <div onclick="openProd(${p.id})"
+          class="group glass-effect rounded-2xl overflow-hidden border border-gray-800
+                 hover:border-light-purple transition-all duration-300 transform
+                 hover:-translate-y-2 hover:shadow-2xl hover:shadow-light-purple/20 cursor-pointer">
+          <div class="h-48 bg-gray-900 relative overflow-hidden">
+            <img src="${p.img}" alt="${p.name}"
+                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+          </div>
+          <div class="p-6">
+            <p class="text-xs text-light-purple font-semibold uppercase tracking-widest mb-1">${p.brand}</p>
+            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-light-purple transition-colors">${p.name}</h3>
+            <p class="text-gray-400 mb-4 line-clamp-3">${p.desc}</p>
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xs text-gray-600 line-through mr-2">${p.priceOld}</span>
+                <span class="text-sm text-light-purple font-semibold">${p.price}</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-sm text-gray-500">${p.ml}</span>
+                <button class="text-xs border border-light-purple text-light-purple px-4 py-1.5 rounded-full
+                               hover:bg-light-purple hover:text-white transition-all">
+                  Ver detalles
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      buildPagination();
+    }
+
+    function buildPagination() {
+      const total = totalPages();
+      if (total <= 1) { document.getElementById('pagination').innerHTML = ''; return; }
+
+      let html = '';
+      /* Flecha izquierda */
+      html += `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage===1?'disabled style="opacity:.35;cursor:not-allowed"':''}>&#8592;</button>`;
+
+      for (let i = 1; i <= total; i++) {
+        if (total > 6 && i > 2 && i < total - 1 && Math.abs(i - currentPage) > 1) {
+          if (i === 3 || i === total - 2) html += `<span class="page-btn dots">…</span>`;
+          continue;
+        }
+        html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+      }
+
+      /* Flecha derecha */
+      html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage===total?'disabled style="opacity:.35;cursor:not-allowed"':''}>&#8594;</button>`;
+      document.getElementById('pagination').innerHTML = html;
+    }
+
+    function goPage(n) {
+      const total = totalPages();
+      if (n < 1 || n > total) return;
+      currentPage = n;
+      buildCatalog();
+      document.getElementById('catalogo').scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+
+    /* (Se mantiene la versión paginada de `buildCatalog` definida arriba.) */
+
+    /* ─── Abrir vista de producto ─── */
+    function openProd(id) {
+      const p = perfumes.find(x => x.id === id);
+      qty = 1;
+      const qtyEl = document.getElementById('qty-num');
+      if (qtyEl) qtyEl.textContent = '1';
+
+      document.getElementById('pd-img').src      = p.img;
+      document.getElementById('pd-img').alt      = p.name;
+      document.getElementById('pd-brand').textContent = p.brand;
+      document.getElementById('pd-name').textContent  = p.name + ' ' + p.ml;
+      document.getElementById('pd-old').textContent   = p.priceOld;
+      document.getElementById('pd-price').textContent = p.price;
+      document.getElementById('pd-desc').textContent  = p.desc;
+
+      document.getElementById('pd-notes').innerHTML =
+        Object.entries(p.notes).map(([k, v]) => `
+          <div class="note-row">
+            <span class="note-label">${k}</span>
+            <span class="note-val">${v}</span>
+          </div>`).join('');
+
+          /* Botón WhatsApp con mensaje automático */
+      const msg = encodeURIComponent(p.waMsg);
+      document.getElementById('btn-whatsapp').href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+
+      const related = perfumes.filter(x => x.id !== id).slice(0, 4);
+      document.getElementById('related-grid').innerHTML = related.map(r => `
+        <div class="rel-card" onclick="openProd(${r.id})">
+          <div class="rel-img-wrap">
+            <img class="rel-img" src="${r.img}" alt="${r.name}">
+          </div>
+          <div class="rel-body">
+            <div class="rel-name">${r.name} – ${r.brand}</div>
+            <div class="rel-prices">
+              <span class="rel-old">${r.priceOld}</span>
+              <span class="rel-price">${r.price}</span>
+            </div>
+          </div>
+        </div>`).join('');
+
+      const vp = document.getElementById('view-product');
+      vp.classList.add('open');
+      vp.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+    }
+
+    /* ─── Cerrar vista de producto ─── */
+    function closeProd() {
+      document.getElementById('view-product').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
       // Mobile menu toggle
+  // Botón inferior: cerrar overlay y volver al catálogo
+  const backToCatalogBottom = document.getElementById('backToCatalogBottom');
+  if (backToCatalogBottom) {
+    backToCatalogBottom.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (typeof closeProd === 'function') closeProd();
+      const catalogEl = document.getElementById('catalogo') || document.getElementById('catalog-grid');
+      if (catalogEl) catalogEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
   const menuBtn = document.getElementById('menuBtn');
   const navMenu = document.getElementById('navMenu');
-  
-  menuBtn.addEventListener('click', () => {
-    navMenu.classList.toggle('hidden');
-  });
+
+  if (menuBtn && navMenu) {
+    menuBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('hidden');
+    });
+  }
 
   // Header scroll effect
   const header = document.getElementById('main-header');
@@ -950,7 +1044,11 @@ document.addEventListener('click', function(e) {
       status.classList.remove('hidden', 'text-green-500');
       status.classList.add('text-red-500');
     }
+
+    
   });
+    buildCatalog();
+
     </script>
   </body>
 </html>
