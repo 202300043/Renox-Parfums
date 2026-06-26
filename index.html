@@ -265,18 +265,18 @@
       <div class="relative z-10 max-w-6xl mx-auto px-6 text-center pt-20">
         <div class="mb-6 animate-fade-in-up">
           <span class="inline-block px-5 py-2 bg-elegant-purple/20 border border-light-purple/30 text-light-purple rounded-full text-sm font-semibold backdrop-blur-sm">
-            Perfumería de Alta Gama
+            Perfumería
           </span>
         </div>
 
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-tight tracking-tight animate-fade-in-up">
-          ESENCIA DE
+          Renox
           <span class="block bg-gradient-to-r from-elegant-purple via-light-purple to-purple-400 bg-clip-text text-transparent">
-            ELEGANCIA
+            Parfum´S
           </span>
         </h1>
 
-        <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in-up">
+        <p class="text-xl mg:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in-up">
           Descubre fragancias únicas que definen tu personalidad e Informamos a nuestros clientes sobre perfumes, sus características y precios, y les facilitamos la búsqueda o solicitud de fragancias específicas.
         </p>
 
@@ -395,14 +395,7 @@
 
 
 
-      <!-- Scroll Indicator -->
-      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <a href="#catalogo" class="block p-2 text-white/50 hover:text-white transition-colors">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
-        </a>
-      </div>
+      
     </section>
 
      <!-- ════ CATÁLOGO ════ -->
@@ -707,35 +700,93 @@
        {
         id:1, brand:'Afnan', name:'9PM Black',
         price:'$800 MXN', priceOld:'$1,050 MXN', ml:'100ml',
-        img:'./images/9pm.png',
-        desc:'Una fragancia intensa y seductora, ideal para la noche. Dulce, cálida y envolvente, perfecta para destacar con estilo y dejar una impresión inolvidable.',
+        img:'./images/9pmm.jpeg',
+        desc:'Afnan 9PM es una fragancia intensa y seductora que mezcla notas dulces de vainilla y manzana con toques especiados de canela y lavanda, creando un aroma elegante, moderno y perfecto para la noche.',
         waMsg:'Hola! Me interesa el perfume *9PM Black de Afnan (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $800 MXN.',
         notes:{ Salida:'Mandarina, Manzana', Corazón:'Canela, Cardamomo', Fondo:'Ámbar, Vainilla, Musgo' }
       },
       {
-        id:2, brand:'Eilish', name:'Billie Eilish Gold',
+        id:2, brand:'Armaf', name:'Odyssey aqua',
+        price:'$950 MXN', priceOld:'$1,200MXN', ml:'100ml',
+        img:'./images/aqua.jpeg',
+        desc:'Odyssey Aqua captura la esencia de la frescura con una explosión de cítricos vibrantes, notas aromáticas y un fondo amaderado que deja una huella sofisticada. Un aroma limpio, intenso y moderno, creado para quienes convierten cada presencia en un recuerdo.',
+        waMsg:'Hola! Me interesa el perfume *Odyssey aqua de Armaf (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $950 MXN.',
+        notes:{ Salida:'Toronja, Naranja, Artemisia', Corazón:'Lavanda, Menta', Fondo:'Ciprés, Pachulí, Ambroxan' }
+      },
+      {
+        id:3, brand:'Armaf', name:'Odyssey Mandarin Sky',
+        price:'$850 MXN', priceOld:'$1,000 MXN', ml:'100ml',
+        img:'./images/mandarin.jpeg',
+        desc:'Odyssey Mandarin Sky combina la frescura vibrante de los cítricos con un corazón dulce y un fondo amaderado, creando una fragancia moderna, seductora y llena de carácter para destacar en cualquier ocasión.',
+        waMsg:'Hola! Me interesa el perfume *Odyssey Mandarin Sky de Armaf (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $1,400 MXN.',
+        notes:{ Salida:'Mandarina, Naranja, Azafrán, Salvia', Corazón:'Caramelo, Haba Tonka, Caléndula', Fondo:'Ambroxan, Vetiver, Cedro' }
+      },
+      {
+        id:4, brand:'Rasasi', name:'Hawas Ice',
+        price:'$1,000 MXN', priceOld:'$1,200MXN', ml:'100ml',
+        img:'./images/ice.jpg',
+        desc:'Hawas Ice de Rasasi es una fragancia masculina fresca, cítrica y especiada, con un fondo amaderado. Vibrante, moderna y perfecta para quienes buscan un aroma limpio y energizante.',
+        waMsg:'Hola! Me interesa el perfume *Hawas Ice de Rasasi (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $1,000 MXN.',
+        notes:{ Salida:'Limón, Bergamota, Menta', Corazón:'Especias, Geranio', Fondo:'Cedro, Sándalo, Almizcle' }
+      },
+      {
+        id:5, brand:'Armaf', name:'Arabian Sky',
+        price:'$1,400 MXN', priceOld:'$1,600MXN', ml:'100ml',
+        img:'./images/arabian.jpeg',
+        desc:'Armaf Arabian Sky es una fragancia masculina fresca y elegante que combina notas cítricas, especiadas y amaderadas, creando un aroma sofisticado, moderno y con gran presencia.',
+        waMsg:'Hola! Me interesa el perfume *Arabian Sky de Armaf (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $1,400 MXN.',
+        notes:{ Salida:'Limón, Pimienta, Aceite de naranja', Corazón:'Lavanda, Geranio, Ylang Ylang', Fondo:'Cedro, Almizcle, Cuero, Ámbar' }
+      },
+      {
+        id:6, brand:'Armaf', name:'Club de Nuit Untold',
+        price:'$1,000 MXN', priceOld:'$1,200 MXN', ml:'105ml',
+        img:'./images/untold.jpeg',
+        desc:'Club de Nuit Untold es una fragancia lujosa y envolvente que fusiona notas especiadas, florales y ambaradas con un fondo cálido y sofisticado, creando un aroma elegante, moderno y con una estela inolvidable.',
+        waMsg:'Hola! Me interesa el perfume *Club de Nuit Untold de Armaf (105ml)* que vi en su catálogo. ¿Está disponible? Su precio es $1,250 MXN.',
+        notes:{ Salida:'Azafrán, Jazmín', Corazón:'Ámbar gris, Ámbar', Fondo:'Resina de abeto, Cedro' }
+      },
+      {
+        id:7, brand:'Carolina Herrera', name:'212 VIP Black',
+        price:'$1,800 MXN', priceOld:'$2,500 MXN', ml:'100ml',
+        img:'./images/212.jpg',
+        desc:'212 VIP Black es una fragancia masculina elegante y misteriosa que mezcla notas aromáticas de lavanda y absenta con un fondo dulce de vainilla y almizcle, perfecta para noches donde quieres dejar una impresión.',
+        waMsg:'Hola! Me interesa el perfume *212 VIP Black de Carolina Herrera (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $1,800 MXN.',
+        notes:{ Salida:'Bergamota, Pimienta negra', Corazón:'Bourbon, Cedro', Fondo:'Ámbar, Cuero, Vainilla' }
+      },
+      {
+        id:8, brand:'Lattafa', name:'Rave Now',
+        price:'$600 MXN', priceOld:'$1,000 MXN', ml:'100ml',
+        img:'./images/now.jpeg',
+        desc:'Rave Now es una fragancia intensa y moderna que combina la dulzura jugosa de la piña con un fondo amaderado y almizclado, creando un aroma llamativo, versátil y con excelente proyección.',
+        waMsg:'Hola! Me interesa el perfume *Rave Now de Lattafa (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $850 MXN.',
+        notes:{ Salida:'Piña, Grosella negra, Bergamota', Corazón:'Abedul, Jazmín marroquí, Pachulí', Fondo:'Almizcle, Vainilla, Musgo de roble, Ámbar' }
+      },
+      {
+        id:9, brand:'Armaf', name:'Club de Nuit Urban Man Elixir',
+        price:'$1,000 MXN', priceOld:'$1,350 MXN', ml:'105ml',
+        img:'./images/urban.jpeg',
+        desc:'Urban Man Elixir es una fragancia intensa y sofisticada que combina cítricos vibrantes, especias y un fondo amaderado con ámbar, logrando un aroma elegante, masculino y de gran duración que deja una impresión inolvidable.',
+        waMsg:'Hola! Me interesa el perfume *Club de Nuit Urban Man Elixir de Armaf (105ml)* que vi en su catálogo. ¿Está disponible? Su precio es $1,150 MXN.',
+        notes:{ Salida:'Bergamota, Pimienta rosa, Flor de azahar, Jazmín', Corazón:'Lavanda, Geranio, Elemi, Cempasúchil, Vetiver, Azafrán', Fondo:'Ambroxan, Cedro, Pachulí, Ámbar, Ládano' }
+      },
+      {
+        id:10, brand:'Armaf', name:'Odyssey Homme',
+        price:'$750 MXN', priceOld:'$1,200 MXN', ml:'100ml',
+        img:'./images/homme.jpeg',
+        desc:'Odyssey Homme es una fragancia elegante y envolvente que combina especias, notas dulces y un fondo amaderado, ofreciendo un aroma sofisticado, masculino y perfecto para destacar tanto de día como de noche.',
+        waMsg:'Hola! Me interesa el perfume *Odyssey Homme de Armaf (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $950 MXN.',
+        notes:{ Salida:'Vainilla, Ámbar', Corazón:'Iris, Especias, Notas orientales', Fondo:'Cuero, Jazmín, Vainilla' }
+      },
+      {
+        id:11, brand:'Eilish', name:'Billie Eilish Gold',
         price:'$950 MXN', priceOld:'$1,200 MXN', ml:'100ml',
         img:'./images/billi.jpg',
         desc:'Un perfume cálido y envolvente, con notas dulces y cremosas que transmiten sensualidad y elegancia. Ideal para quienes buscan un aroma sofisticado y con personalidad propia.',
         waMsg:'Hola! Me interesa el perfume *Billie Eilish Gold (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $950 MXN.',
         notes:{ Salida:'Bergamota, Mandarina', Corazón:'Gardenia, Rosa, Jazmín', Fondo:'Sándalo, Vainilla, Almizcle' }
       },
-      {
-        id:3, brand:'Carolina Herrera', name:'212 VIP Black',
-        price:'$1,800 MXN', priceOld:'$2,500 MXN', ml:'100ml',
-        img:'./images/212.jpg',
-        desc:'Una fragancia audaz y elegante, con un aroma intenso y masculino. Perfecta para la noche, transmite seguridad, sofisticación y un estilo moderno que no pasa desapercibido.',
-        waMsg:'Hola! Me interesa el perfume *212 VIP Black de Carolina Herrera (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $1,800 MXN.',
-        notes:{ Salida:'Bergamota, Pimienta negra', Corazón:'Bourbon, Cedro', Fondo:'Ámbar, Cuero, Vainilla' }
-      },
-      {
-        id:4, brand:'Rasasi', name:'Hawas Ice',
-        price:'$1,000 MXN', priceOld:'$1,200MXN', ml:'100ml',
-        img:'./images/hawas.png',
-        desc:'Hawas Ice de Rasasi es una fragancia masculina fresca, cítrica y especiada, con un fondo amaderado. Vibrante, moderna y perfecta para quienes buscan un aroma limpio y energizante.',
-        waMsg:'Hola! Me interesa el perfume *Hawas Ice de Rasasi (100ml)* que vi en su catálogo. ¿Está disponible? Su precio es $1,000 MXN.',
-        notes:{ Salida:'Limón, Bergamota, Menta', Corazón:'Especias, Geranio', Fondo:'Cedro, Sándalo, Almizcle' }
-      }
+      
+      
     ];
 
     let qty = 1;
